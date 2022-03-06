@@ -1,7 +1,6 @@
 const { Thought, User } = require('../models');
 
 const thoughtControls = {
-    //get all thoughts
     getAllThoughts(req, res) {
         Thought.find({})
         .populate({
@@ -16,8 +15,6 @@ const thoughtControls = {
             res.status(500).json(err)
         });
     },
-
-    //get one thought by ID
     getThoughtById({ params }, res) {
         Thought.findOne({ _id: params.id })
             .populate({
@@ -32,8 +29,6 @@ const thoughtControls = {
                res.status(500).json(err)
            })
     },
-
-    //create thought
     createThought({ params, body }, res) {
         Thought.create(body)
             .then(({ _id}) => {
@@ -53,7 +48,6 @@ const thoughtControls = {
             .catch(err => res.json(err));
     },
 
-    //add reaction
     addReaction ({ params, body}, res) {
         Thought.findOneAndUpdate(
             { _id: params.thoughtId },
@@ -69,8 +63,6 @@ const thoughtControls = {
         })
         .catch(err => res.json(err));
     },
-
-    //delete Reaction
     deleteReaction({ params }, res) {
         Thought.findOneAndUpdate(
             { _id: params.thoughtId },
@@ -80,8 +72,6 @@ const thoughtControls = {
         .then(dbThoughtData => res.json(dbThoughtData))
         .catch(err => res.json(err));
     },
-
-    //update a thought by Id
     updatedThought({ params, body }, res) {
         Thought.findOneAndUpdate(
             { _id: params.id }, 
@@ -96,8 +86,6 @@ const thoughtControls = {
         })
         .catch(err => res.json(err));
     },
-
-    //delete a thought by ID
     deleteThought({ params, body}, res) {
         Thought.findOneAndDelete({ _id: params.id })
         .then(deletedThought => {
