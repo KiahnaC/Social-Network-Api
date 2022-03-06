@@ -52,4 +52,22 @@ const thoughtSchema = new Schema (
         },
         reactions: [ReactionSchema],
     },
-    
+    {
+        toJSON: {
+          virtuals: true,
+          getters: true
+        },
+        id: false
+    }
+  )
+  
+  
+  const userThoughts = model('Thought', thoughtSchema);
+  
+    // get total count of friends on retrieval
+    thoughtSchema.virtual('reactionCount').get(function() {
+      return this.reactions.length;
+    });
+  
+  
+  module.exports = Thought;
