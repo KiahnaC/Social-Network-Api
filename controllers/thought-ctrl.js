@@ -63,7 +63,7 @@ const thoughtControls = {
         })
         .catch(err => res.json(err));
     },
-    deleteReaction({ params }, res) {
+    deleteReaction({ params, body }, res) {
         Thought.findOneAndUpdate(
             { _id: params.thoughtId },
             { $pull: { reactions: { reactionId: params.reactionId } } },
